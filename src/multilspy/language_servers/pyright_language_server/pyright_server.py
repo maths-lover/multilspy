@@ -34,7 +34,9 @@ class PyrightServer(LanguageServer):
             config,
             logger,
             repository_root_path,
-            ProcessLaunchInfo(cmd="pyright", cwd=repository_root_path),
+            ProcessLaunchInfo(
+                cmd="basaedpyright-langserver --stdio", cwd=repository_root_path
+            ),
             "python",
         )
 
