@@ -90,10 +90,6 @@ class PyrightServer(LanguageServer):
         async def do_nothing(params):
             return
 
-        async def check_experimental_status(params):
-            if params["quiescent"] == True:
-                self.completions_available.set()
-
         async def window_log_message(msg):
             self.logger.log(f"LSP: window/logMessage: {msg}", logging.INFO)
 
@@ -106,14 +102,9 @@ class PyrightServer(LanguageServer):
         self.server.on_notification("$/progress", do_nothing)
         self.server.on_notification("textDocument/publishDiagnostics", do_nothing)
         self.server.on_notification("language/actionableNotification", do_nothing)
-        self.server.on_notification(
-            "experimental/serverStatus", check_experimental_status
-        )
 
         async with super().start_server():
-            self.logger.log(
-                "Starting pyright-language-server server process", logging.INFO
-            )
+            self.logger.log("Starting basedpyright-langserver process", logging.INFO)
             await self.server.start()
             initialize_params = self._get_initialize_params(self.repository_root_path)
 
@@ -125,8 +116,10 @@ class PyrightServer(LanguageServer):
             assert init_response["capabilities"]["textDocumentSync"]["change"] == 2
             assert "completionProvider" in init_response["capabilities"]
             assert init_response["capabilities"]["completionProvider"] == {
-                "triggerCharacters": [".", "'", '"'],
+                "triggerCharacters": [".", "[", '"', "'"],
                 "resolveProvider": True,
+                "workDoneProgress": True,
+                "completionItem": {"labelDetailsSupport": True},
             }
 
             self.server.notify.initialized({})
@@ -134,4 +127,5 @@ class PyrightServer(LanguageServer):
             yield self
 
             await self.server.shutdown()
+
             await self.server.stop()

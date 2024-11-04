@@ -3,7 +3,7 @@
     "processId": "os.getpid()",
     "clientInfo": {
         "name": "Visual Studio Code - Insiders",
-        "version": "1.82.0-insider"
+        "version": "1.81.0-insider"
     },
     "locale": "en",
     "rootPath": "$rootPath",
@@ -428,6 +428,17 @@
                 "relatedDocumentSupport": false
             }
         },
+        "window": {
+            "showMessage": {
+                "messageActionItem": {
+                    "additionalPropertiesSupport": true
+                }
+            },
+            "showDocument": {
+                "support": true
+            },
+            "workDoneProgress": true
+        },
         "general": {
             "staleRequestSupport": {
                 "cancel": true,
@@ -492,7 +503,6 @@
             "serverStatusNotification": true,
             "colorDiagnosticOutput": true,
             "openServerLogs": true,
-            "localDocs": true,
             "commands": {
                 "commands": [
                     "rust-analyzer.runSingle",
@@ -514,16 +524,13 @@
             "command": null,
             "extraArgs": []
         },
-        "statusBar": {
-            "clickAction": "openLogs"
-        },
         "server": {
             "path": null,
             "extraEnv": null
         },
         "trace": {
             "server": "verbose",
-            "extension": false
+            "extension": true
         },
         "debug": {
             "engine": "auto",
@@ -552,7 +559,7 @@
             "warningsAsHint": [],
             "warningsAsInfo": []
         },
-        "discoverProjectRunner": null,
+        "discoverProjectCommand": null,
         "showUnlinkedFileNotification": true,
         "showDependenciesExplorer": true,
         "assist": {
@@ -591,7 +598,6 @@
             "extraArgs": [],
             "extraEnv": {},
             "features": null,
-            "ignore": [],
             "invocationLocation": "workspace",
             "invocationStrategy": "per_workspace",
             "noDefaultFeatures": null,
@@ -607,9 +613,6 @@
             },
             "callable": {
                 "snippets": "fill_arguments"
-            },
-            "fullFunctionSignatures": {
-                "enable": false
             },
             "limit": null,
             "postfix": {
@@ -730,8 +733,11 @@
             "merge": {
                 "glob": true
             },
-            "preferNoStd": false,
-            "preferPrelude": false,
+            "prefer": {
+                "no": {
+                    "std": false
+                }
+            },
             "prefix": "plain"
         },
         "inlayHints": {
@@ -836,9 +842,6 @@
         },
         "references": {
             "excludeImports": false
-        },
-        "rust": {
-            "analyzerTargetDir": null
         },
         "rustc": {
             "source": null
